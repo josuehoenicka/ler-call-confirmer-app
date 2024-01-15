@@ -1,21 +1,21 @@
 function init() {
-  if (localStorage.getItem('followUpsCount')) {
+  if (localStorage.getItem('totalBookingConfirmadas')) {
     procesoConfirmacionCount = parseInt(localStorage.getItem('procesoConfirmacionCount'));
     newBookingCount = parseInt(localStorage.getItem('newBookingCount'));
-    totalChatsCount = parseInt(localStorage.getItem('totalChatsCount'));
-    followUpsCount = parseInt(localStorage.getItem('followUpsCount'));
+    totalBookingCanceladas = parseInt(localStorage.getItem('totalBookingCanceladas'));
+    totalBookingConfirmadas = parseInt(localStorage.getItem('totalBookingConfirmadas'));
   } else {
     procesoConfirmacionCount = 0;
     newBookingCount = 0;
-    totalChatsCount = 0;
-    followUpsCount = 0;
+    totalBookingCanceladas = 0;
+    totalBookingConfirmadas = 0;
   }
 
   document.getElementById("procesoConfirmacionCount").textContent = procesoConfirmacionCount;
   document.getElementById("newBookingCount").textContent = newBookingCount;
-  document.getElementById("totalChatsCount").textContent = totalChatsCount;
-  document.getElementById("followUpsCount").textContent = followUpsCount;
-  restoreListData("callsProposedList");
+  document.getElementById("totalBookingCanceladas").textContent = totalBookingCanceladas;
+  document.getElementById("totalBookingConfirmadas").textContent = totalBookingConfirmadas;
+  restoreListData("bookingConfirmadasList");
   restoreListData("newBookingList");
   restoreListData("bookingPediente");
   restoreListData("notesList");
@@ -26,14 +26,14 @@ window.addEventListener('DOMContentLoaded', init);
 function saveDataToLocalStorage() {
   localStorage.setItem('procesoConfirmacionCount', procesoConfirmacionCount);
   localStorage.setItem('newBookingCount', newBookingCount);
-  localStorage.setItem('totalChatsCount', totalChatsCount);
-  localStorage.setItem('followUpsCount', followUpsCount);
+  localStorage.setItem('totalBookingCanceladas', totalBookingCanceladas);
+  localStorage.setItem('totalBookingConfirmadas', totalBookingConfirmadas);
 }
   
 let procesoConfirmacionCount = 0;
 let newBookingCount = 0;
-let totalChatsCount = 0;
-let followUpsCount = 0;
+let totalBookingCanceladas = 0;
+let totalBookingConfirmadas = 0;
 
 const fechaActual = new Date();
 const dia = String(fechaActual.getDate()).padStart(2, '0');
@@ -41,12 +41,12 @@ const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
 const año = fechaActual.getFullYear();
 const fechaFormateada = `${dia}-${mes}-${año}`;
 
-function incrementClickupLeads() {
+function procesoConfirmacionPlus() {
   procesoConfirmacionCount++;
   document.getElementById("procesoConfirmacionCount").textContent = procesoConfirmacionCount;
   saveDataToLocalStorage();
 }
-function decreaseClickupLeads() {
+function procesoConfirmacionDecrease() {
   if (procesoConfirmacionCount > 0) {
       procesoConfirmacionCount--;
       document.getElementById("procesoConfirmacionCount").textContent = procesoConfirmacionCount;
@@ -54,12 +54,12 @@ function decreaseClickupLeads() {
   }
 }
 
-function incrementOpenChats() {
+function newBookingPlus() {
   newBookingCount++;
   document.getElementById("newBookingCount").textContent = newBookingCount;
   saveDataToLocalStorage();
 }
-function decreaseOpenChats() {
+function newBookingDecrease() {
   if (newBookingCount > 0) {
       newBookingCount--;
       document.getElementById("newBookingCount").textContent = newBookingCount;
@@ -67,28 +67,28 @@ function decreaseOpenChats() {
   }
 }
 
-function incrementTotalChats() {
-  totalChatsCount++;
-  document.getElementById("totalChatsCount").textContent = totalChatsCount;
+function totalBookingCanceladasPlus() {
+  totalBookingCanceladas++;
+  document.getElementById("totalBookingCanceladas").textContent = totalBookingCanceladas;
   saveDataToLocalStorage();
 }
-function decreaseTotalChats() {
-  if (totalChatsCount > 0) {
-    totalChatsCount--;
-    document.getElementById("totalChatsCount").textContent = totalChatsCount;
+function totalBookingCanceladasDecrease() {
+  if (totalBookingCanceladas > 0) {
+    totalBookingCanceladas--;
+    document.getElementById("totalBookingCanceladas").textContent = totalBookingCanceladas;
     saveDataToLocalStorage();
   }
 }
 
-function incrementFollowUps() {
-  followUpsCount++;
-  document.getElementById("followUpsCount").textContent = followUpsCount;
+function totalBookingConfirmadasPlus() {
+  totalBookingConfirmadas++;
+  document.getElementById("totalBookingConfirmadas").textContent = totalBookingConfirmadas;
   saveDataToLocalStorage();
 }
-function decreaseFollowUps() {
-  if (followUpsCount > 0) {
-      followUpsCount--;
-      document.getElementById("followUpsCount").textContent = followUpsCount;
+function totalBookingConfirmadasDecrease() {
+  if (totalBookingConfirmadas > 0) {
+      totalBookingConfirmadas--;
+      document.getElementById("totalBookingConfirmadas").textContent = totalBookingConfirmadas;
       saveDataToLocalStorage();
   }
 }
@@ -107,14 +107,14 @@ function decreaseNewChatOutbound() {
 }
 
 document.getElementById('fechaActual').textContent = fechaFormateada;
-document.getElementById("procesoConfirmacionPlus").addEventListener("click", incrementClickupLeads);
-document.getElementById("procesoConfirmacionDecrease").addEventListener("click", decreaseClickupLeads);
-document.getElementById("newBookingDecrease").addEventListener("click", incrementOpenChats);
-document.getElementById("openChatsDecreaseBtn").addEventListener("click", decreaseOpenChats);
-document.getElementById("totalChatsBtn").addEventListener("click", incrementTotalChats);
-document.getElementById("totalChatsDecreaseBtn").addEventListener("click", decreaseTotalChats);
-document.getElementById("followUpsBtn").addEventListener("click", incrementFollowUps);
-document.getElementById("followUpsDecreaseBtn").addEventListener("click", decreaseFollowUps);
+document.getElementById("procesoConfirmacionPlus").addEventListener("click", procesoConfirmacionPlus);
+document.getElementById("procesoConfirmacionDecrease").addEventListener("click", procesoConfirmacionDecrease);
+document.getElementById("newBookingPlus").addEventListener("click", newBookingPlus);
+document.getElementById("newBookingDecrease").addEventListener("click", newBookingDecrease);
+document.getElementById("totalBookingCanceladasPlus").addEventListener("click", totalBookingCanceladasPlus);
+document.getElementById("totalBookingCanceladasDecrease").addEventListener("click", totalBookingCanceladasDecrease);
+document.getElementById("totalBookingConfirmadasPlus").addEventListener("click", totalBookingConfirmadasPlus);
+document.getElementById("totalBookingConfirmadasDecrease").addEventListener("click", totalBookingConfirmadasDecrease);
 document.getElementById("newChatInboundBtn").addEventListener("click", incrementNewChatInbound);
 document.getElementById("newChatInboundDecreaseBtn").addEventListener("click", decreaseNewChatInbound);
 document.getElementById("newChatOutboundDecreaseBtn").addEventListener("click", decreaseNewChatOutbound);
@@ -149,8 +149,8 @@ function addNameToList(inputId, listId) {
 }
 
 
-document.getElementById("callsProposedBtn").addEventListener("click", () => {
-    addNameToList("callsProposedInput", "callsProposedList");
+document.getElementById("bookingConfirmadasListBtn").addEventListener("click", () => {
+    addNameToList("callsProposedInput", "bookingConfirmadasList");
 });
 document.getElementById("newBookingBtn").addEventListener("click", () => {
     addNameToList("newBookingInput", "newBookingList");
@@ -166,9 +166,9 @@ function getDataAsText() {
     let text = "";
     text += "Hubspot leads: " + procesoConfirmacionCount + "\n";
     text += "Open chats: " + newBookingCount + "\n";
-    text += "Total chats: " + totalChatsCount + "\n";
-    text += "Follow ups: " + followUpsCount + "\n\n";
-    text += "Calls Proposed:\n" + getNumberedNamesTextFromList("callsProposedList") + "\n";
+    text += "Total chats: " + totalBookingCanceladas + "\n";
+    text += "Follow ups: " + totalBookingConfirmadas + "\n\n";
+    text += "Calls Proposed:\n" + getNumberedNamesTextFromList("bookingConfirmadasList") + "\n";
     text += "New Booking:\n" + getNumberedNamesTextFromList("newBookingList") + "\n";
     text += "New Booking:\n" + getNumberedNamesTextFromList("bookingPediente") + "\n";
     text += "Notas:\n" + getNumberedNamesTextFromList("notesList") + "\n" + "\n" + "\n" + "\n";
@@ -237,20 +237,20 @@ function resetData() {
   
   procesoConfirmacionCount = 0;
   newBookingCount = 0;
-  totalChatsCount = 0;
-  followUpsCount = 0;
+  totalBookingCanceladas = 0;
+  totalBookingConfirmadas = 0;
   
   document.getElementById("procesoConfirmacionCount").textContent = procesoConfirmacionCount;
   document.getElementById("newBookingCount").textContent = newBookingCount;
-  document.getElementById("totalChatsCount").textContent = totalChatsCount;
-  document.getElementById("followUpsCount").textContent = followUpsCount;
+  document.getElementById("totalBookingCanceladas").textContent = totalBookingCanceladas;
+  document.getElementById("totalBookingConfirmadas").textContent = totalBookingConfirmadas;
   
-  localStorage.removeItem("callsProposedList");
+  localStorage.removeItem("bookingConfirmadasList");
   localStorage.removeItem("newBookingList");
   localStorage.removeItem("bookingPediente");
   localStorage.removeItem("notesList");
   
-  document.getElementById("callsProposedList").innerHTML = "";
+  document.getElementById("bookingConfirmadasList").innerHTML = "";
   document.getElementById("newBookingList").innerHTML = "";
   document.getElementById("bookingPediente").innerHTML = "";
   document.getElementById("notesList").innerHTML = "";
